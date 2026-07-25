@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/NimaChu/free-imagegen/blob/main/references/story-plan.schema.json",
+  "$id": "https://github.com/NimaChu/xiaohongshu-content-creator/blob/main/references/story-plan.schema.json",
   "title": "Free ImageGen Story Plan",
   "description": "Agent-authored page plan for local article-to-image rendering.",
   "type": "object",
