@@ -102,7 +102,7 @@ python3 scripts/make_prompt_pack.py \
 
 Use it as the default path.
 
-1. Use `assets/character-sheet.png` and `assets/character-poses.png` as image references.
+1. Use `assets/character-sheet.png` as the only bundled character image reference.
 2. Generate the cover and one representative inner page first.
 3. Inspect character identity, typography, spacing, color, and copy accuracy.
 4. Lock the successful visual description.

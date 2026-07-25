@@ -2,10 +2,9 @@
 
 ## Canonical character
 
-Use the bundled references:
+Use the bundled reference:
 
 - `assets/character-sheet.png`
-- `assets/character-poses.png`
 
 Default host:
 
