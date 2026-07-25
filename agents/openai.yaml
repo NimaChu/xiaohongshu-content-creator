@@ -1,4 +1,7 @@
 interface:
-  display_name: "Free ImageGen"
-  short_description: "Local free text-to-image via SVG to PNG"
-  default_prompt: "Use $free-imagegen to generate image assets locally by creating SVG first and then converting to PNG."
+  display_name: "小红书图文创作"
+  short_description: "从选题调研到封面、内页和发布文案的一站式小红书图文创作"
+  icon_small: "./assets/icon-400.png"
+  icon_large: "./assets/character-sheet.png"
+  brand_color: "#2F75D6"
+  default_prompt: "Use $xiaohongshu-content-creator to turn my topic into a researched Xiaohongshu post with a 3:4 cover and 9:16 content pages."

@@ -1,223 +1,123 @@
-# Free ImageGen
+# 小红书图文创作
 
-[English README](./README.md)
+[English](./README.md)
 
-一个 **免 API、没硬件门槛、纯本地** 的内容型生图技能。
+`xiaohongshu-content-creator` 是一个完整的小红书图文创作技能，负责：
 
-如果你想直接生成：
-- 📱 小红书封面
-- 📊 知识卡 / 信息图
-- 📰 文章转图文卡组
-- 🦞 OpenClaw 可直接使用的视觉资产
+- 调研与事实核验
+- 小红书标题、正文和标签
+- 分页、文案和分镜
+- 3:4 封面与 9:16 内页
+- 统一角色的漫画科普图
+- 无生图工具时的本地 SVG → PNG 降级
+- 发布前的文字、比例、事实和角色一致性检查
 
-它通常会比扩散模型更顺手。
+## 自动选择执行路径
 
-## 为什么会有这个技能？
+### 有生图工具
 
-大多数文生图工具更擅长：
-- 写实感
-- 氛围感
-- 视觉奇观
-- “一句话生成一张看起来很厉害的图”
+默认使用生图工具，沿用固定眼镜漫画主持人、米白背景、黑色大标题和钴蓝强调色。先生成封面和一张代表性内页，确认风格后再生成整套。
 
-`Free ImageGen` 走的是另一条路：
-- ✅ **免 API**：不需要图片 API，不需要按张付费
-- ✅ **没硬件门槛**：不用 GPU，不用本地部署扩散模型
-- ✅ **纯本地**：更适合隐私、可控、低成本工作流
-- ✅ **自由度高**：agent 可以自己决定分页、版式、风格
-- ✅ **中文友好**：中文标题、中英混排、手机阅读更稳
-- ✅ **小红书友好**：特别适合封面、知识卡、文章图组
+### 没有生图工具
 
-如果你想做的是 **内容表达型图片**，而不是写实绘画，这条路通常会比扩散模型更稳。
+自动使用原 `free-imagegen` 本地渲染能力，生成中文稳定、可复现的知识卡式 PNG。它是完整的本地降级方案，但不会伪装成模型生成的漫画插画。
 
-## 它和扩散模型有什么不同？
+### 用户明确反馈文字错误
 
-扩散模型适合：
-- 写实插画
-- 电影感 / 绘画感
-- 视觉冲击
-- 细节非常丰富的自由绘图
+先尝试局部图片编辑或重绘。问题仍未解决时，才使用 SVG 文字覆盖工具修复指定区域。主流程不会为了预防错字而提前拆分文字和插画。
 
-`Free ImageGen` 更适合：
-- 结构化内容表达
-- 可读的文章页面
-- 清单、对比、机制、地图、QA 这类知识卡
-- 一篇文章直接产出一整套图片
-- agent 负责判断，renderer 负责稳定执行
+## 小红书默认规格
 
-一句话说：
+| 图片 | 比例 | 推荐尺寸 |
+|---|---:|---:|
+| 封面 | 3:4 | 1080 × 1440 |
+| 内页 | 9:16 | 1080 × 1920 |
 
-> 它更像一个面向内容工作流的本地设计渲染器，而不是一个追求视觉奇观的扩散模型。
+默认生成 1 张封面和 5–8 张内页，一页只讲一个核心观点。
 
-## 推荐使用场景
+## 在 Codex 中使用
 
-### 1. 小红书封面
-适合：
-- 大标题封面
-- 观点封面
-- 工具推荐封面
-- 带大表情主视觉的封面
-
-### 2. 信息图 / 知识卡
-内置比较成熟的卡片包括：
-- 清单卡
-- 对比卡
-- 机制卡
-- 产品地图
-- QA 卡
-- 流程卡
-- 时间线卡
-
-### 3. 一篇文章拆成一整套图片
-这是它最强的场景之一。
-
-适合：
-- 飞书文章
-- 公众号文章
-- 长笔记
-- 采访整理
-- 产品更新
-- AI 工具解读
-
-### 4. 自由 SVG 创作
-如果你不想被内置模板约束，可以直接让 agent 输出 `custom_svg`。
-
-适合：
-- 吉祥物
-- 贴纸风图案
-- 单页装饰插画
-- 需要 agent 直接控制画面的页面
-
-## 创意到底来自哪里？
-
-这套技能不会凭空替你想出好创意。
-
-更准确地说：
-- 🧠 创意来自人类
-- 🤖 视觉判断取决于 agent
-- 🛠️ renderer 负责把这些决定稳定落图
-
-这正是它的价值：
-- agent 负责思考
-- renderer 负责执行
-
-如果 agent 判断很强，最终结果就会很强。
-如果 agent 判断一般，这个技能也不会替它“脑补成神图”。
-
-## Quick Start
-
-### 快速做一张封面
-
-```bash
-python3 scripts/free_image_gen.py \
-  --prompt "文字封面，标题 AI 产品设计原则，副标题 清晰层级 高识别度，主题：light，封面布局：hero_emoji_top，主视觉表情：💡" \
-  --output /absolute/path/output/cover.png \
-  --width 1080 \
-  --height 1440
+```text
+使用 $xiaohongshu-content-creator，先调研“RAG 为什么不是给模型安装知识”，
+再生成一张 3:4 封面和 6 张 9:16 小红书漫画科普图。
 ```
 
-### 快速做一张信息图
+技能会根据当前工具自动决定使用生图模型还是本地渲染，不需要用户提前选择模式。
 
-```bash
-python3 scripts/free_image_gen.py \
-  --prompt "信息图 机制卡 角标：三个关键点 标题：AI Agent 为什么突然火了 副标题：不是模型更强了，而是入口和体验变了 1. 门槛更低 2. 分发更广 3. 商业化更真实" \
-  --output /absolute/path/output/infographic.png \
-  --width 1080 \
-  --height 1440
+## 项目产物
+
+```text
+output/<topic>/
+├── project.json
+├── research.md
+├── post.md
+├── storyboard.md
+├── prompts/
+├── images/
+│   ├── cover.png
+│   ├── page-01.png
+│   └── ...
+└── qa-report.md
 ```
 
-### 给一篇文章，直接生成整套图片
+## 本地渲染
+
+校验项目：
 
 ```bash
-python3 scripts/free_image_gen.py \
-  --prompt-file /absolute/path/article.md \
-  --story-output-dir /absolute/path/output/article-story \
-  --story-strategy auto \
-  --width 1080 \
-  --height 1440
+python3 scripts/validate_project.py references/project.template.json
 ```
 
-这条命令适合快速打草稿。
+生成本地图片：
 
-### 最推荐：让 agent 先思考，再渲染
+```bash
+python3 scripts/render_xiaohongshu_project.py \
+  references/project.template.json \
+  --output-dir output/terminal
+```
 
-这是最能发挥这套技能能力的工作流。
+只生成本地渲染提示词：
 
-让 agent：
-- 读完整篇文章
-- 决定怎么分页
-- 判断哪页该保留文章结构
-- 判断哪页该转成清单 / 机制卡 / 对比卡 / 地图 / QA 卡
-- 保持内容忠于原文
-- 先产出 `story-plan.json`
-- 再调用 `free-imagegen` 渲染整套图片
+```bash
+python3 scripts/render_xiaohongshu_project.py \
+  references/project.template.json \
+  --output-dir output/terminal \
+  --prompts-only
+```
 
-这样最后会变成：
-- agent 负责思考
-- renderer 负责执行
+生成生图模型使用的逐页 Prompt：
 
-## 默认输出行为
+```bash
+python3 scripts/make_prompt_pack.py \
+  references/project.template.json \
+  --output-dir output/terminal/prompts
+```
 
-默认行为已经尽量收干净：
-- 默认只输出 PNG
-- 不会额外保存 SVG，除非显式加 `--keep-svg`
-- 默认命名更整洁
-- 默认输出目录也更清晰
+## 局部文字修复
 
-## 自由度到底高不高？
+仅在用户明确指出文字问题后使用：
 
-这套技能不是“只能套模板”。
+```bash
+python3 scripts/patch_image_text.py \
+  --input output/terminal/images/page-01.png \
+  --output output/terminal/images/page-01-fixed.png \
+  --x 100 --y 300 --width 880 --height 180 \
+  --text "正确文字"
+```
 
-你可以：
-- 用内置版式快速做封面和信息图
-- 让 agent 规划整套图的分页和风格
-- 直接让 agent 写 `custom_svg`
+工具默认拒绝覆盖原图。
 
-所以它的自由度来源不是“乱生成”，而是：
-- 有结构时很稳
-- 需要自由时也能放开
+## 兼容性
 
-## fallback 和主路径怎么理解？
+原 `scripts/free_image_gen.py` 和 Story Plan 接口继续保留，已有本地工作流仍可使用。对外的技能名称和定位统一为 `xiaohongshu-content-creator`。
 
-`illustration` 依然存在，但更适合当作 **轻量 fallback**。
+## 测试
 
-适合 `illustration` 的场景：
-- 快速抽象图
-- 简单装饰图
-- 轻量单图占位
+```bash
+python3 -m unittest discover -s tests -v
+python3 scripts/validate_project.py references/project.template.json
+```
 
-更推荐优先使用 `custom_svg` 的场景：
-- 具体对象
-- 吉祥物
-- 动物
-- 机器人
-- 贴纸风图案
-- 需要 agent 直接控制视觉结果的页面
+## License
 
-## 给 agent 的接入资料
-
-如果你想接进 OpenClaw 或其他 agent 工作流，优先看这些：
-- `references/story-plan.schema.json`
-- `references/story-plan.template.json`
-- `references/story-plan.guide.md`
-- `references/story-plan.agent-prompt.md`
-- `references/custom-svg-best-practices.md`
-- `references/custom-svg.story-plan.sample.json`
-
-这些文件的目标不是限制 agent，而是：
-- 保留 agent 的自由判断
-- 同时让输出结构足够稳
-
-## 一句话总结
-
-如果你要的是：
-- 免费
-- 纯本地
-- 免 API
-- 没硬件门槛
-- 中文友好
-- 小红书友好
-- agent 可控
-- 一篇文章直接变成一整套图
-
-那 `Free ImageGen` 就是为这个场景做的。
+MIT
