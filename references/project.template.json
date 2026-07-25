@@ -1,0 +1,100 @@
+{
+  "topic": "终端（Terminal）",
+  "audience": "第一次接触 AI 编程工具的零基础用户",
+  "thesis": "终端是连接人、AI 与电脑系统的操作入口。",
+  "language": "zh-CN",
+  "character": "使用 assets 中固定的眼镜漫画主持人：短黑发、透明灰色矩形眼镜、深灰卫衣、黑裤和白鞋；保持跨页一致。",
+  "post": {
+    "title": "给小白讲清楚：终端到底是什么？",
+    "body": "终端看起来很技术，其实它只是一个用文字控制电脑的入口。这组图从鼠标操作讲到 AI Agent，帮你理解为什么 Codex、Claude Code 这类工具离不开终端。",
+    "hashtags": ["#AI入门", "#终端", "#AI编程", "#知识科普"]
+  },
+  "cover": {
+    "title": "给小白讲清楚：终端",
+    "subtitle": "为什么 AI Agent 离不开它？",
+    "bottom_takeaway": "终端 = 连接你、AI 与电脑的桥梁",
+    "composition": "上方大标题，中部主持人指向黑色终端窗口，右侧展示人、AI Agent 与计算机系统的关系，底部放一句总结。",
+    "width": 1080,
+    "height": 1440
+  },
+  "pages": [
+    {
+      "number": 1,
+      "title": "终端是什么？",
+      "archetype": "definition + comparison",
+      "local_kind": "comparison",
+      "key_message": "终端 = 用文字控制电脑的窗口",
+      "copy": ["以前：用鼠标点点点", "现在：用命令让电脑做事", "更高效、更强大、更灵活"],
+      "visual": "上方一句白话定义，下半部分左右对比图形界面和黑色终端窗口。",
+      "character_pose": "微笑并竖起食指，分别展示鼠标和键盘操作。",
+      "flow": "标题到定义，再从鼠标操作过渡到命令操作，底部汇总。",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "number": 2,
+      "title": "终端能做什么？",
+      "archetype": "capability grid",
+      "local_kind": "catalog",
+      "key_message": "很多重复操作，都能直接让电脑去做",
+      "copy": ["创建文件", "运行代码", "安装工具", "执行命令"],
+      "visual": "上半部分是主持人和终端窗口，下半部分是四张能力卡片。",
+      "character_pose": "坐在笔记本电脑旁，向终端窗口指示。",
+      "flow": "标题、终端窗口、四项能力网格、一句话总结。",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "number": 3,
+      "title": "终端为什么重要？",
+      "archetype": "before and after",
+      "local_kind": "comparison",
+      "key_message": "一次命令，能顶很多次手动操作",
+      "copy": ["更高效", "可批量处理", "更容易自动化"],
+      "visual": "左右双栏，对比重复鼠标操作和一条命令自动完成多个动作。",
+      "character_pose": "左侧疲惫，右侧在终端旁竖起大拇指。",
+      "flow": "手动五步对比终端一条命令分发多个结果。",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "number": 4,
+      "title": "AI Agent 时代，终端变了",
+      "archetype": "before and after",
+      "local_kind": "comparison",
+      "key_message": "AI 不再只给建议，而是进入项目真正完成任务",
+      "copy": ["以前：AI 告诉你怎么改", "现在：AI 读取文件、修改代码、运行测试、返回结果", "AI 真正动手，你更专注于目标"],
+      "visual": "左右分栏漫画，左侧由人手动修改，右侧 AI 通过终端执行任务。",
+      "character_pose": "左侧思考后自己动手，右侧给出目标并验收结果。",
+      "flow": "左侧提问、建议、人执行；右侧目标、AI 执行链、人验收。",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "number": 5,
+      "title": "AI 编程工具在做什么？",
+      "archetype": "tool workflow",
+      "local_kind": "flow",
+      "key_message": "它们让 AI 从回答问题变成执行任务",
+      "copy": ["1 你给目标", "2 AI 理解任务", "3 通过终端执行", "4 返回结果"],
+      "visual": "纵向四步流程，第三步展示读取文件、修改代码和运行测试。",
+      "character_pose": "挥手给出任务、托腮思考、敲终端、最后点赞。",
+      "flow": "严格从 1 到 4 自上而下。",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "number": 6,
+      "title": "人为什么还不能缺席？",
+      "archetype": "human-in-the-loop",
+      "local_kind": "mechanism",
+      "key_message": "AI 很强，但主导权始终在人手里",
+      "copy": ["人定目标", "人给权限", "AI 执行", "人看结果", "再调整"],
+      "visual": "主持人在中间，五个步骤构成蓝色闭环。",
+      "character_pose": "中心抱臂自信，周围展示思考、持盾、检查和调整。",
+      "flow": "五步顺时针循环，从人定目标开始并回到人再调整。",
+      "width": 1080,
+      "height": 1920
+    }
+  ]
+}

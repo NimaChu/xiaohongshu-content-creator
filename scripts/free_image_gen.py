@@ -8,6 +8,7 @@ import html
 import json
 import math
 import mimetypes
+import os
 import re
 import shutil
 import subprocess
@@ -18,7 +19,8 @@ from pathlib import Path
 from typing import Any
 
 
-EXPORT_FALLBACK_SCRIPT = Path("/Users/chunima/.codex/skills/svg-png-cover-generator/scripts/export_svg_to_png.sh")
+_export_fallback_value = os.environ.get("FREE_IMAGEGEN_EXPORT_SCRIPT", "").strip()
+EXPORT_FALLBACK_SCRIPT = Path(_export_fallback_value).expanduser() if _export_fallback_value else None
 SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parent
 DEFAULT_OUTPUT_DIR = REPO_ROOT.parent / "output"
@@ -3582,7 +3584,7 @@ def export_svg_to_png(svg_path: Path, png_path: Path, width: int, height: int) -
         if run(["magick", "-background", "none", str(svg_path), str(png_path)]):
             return
 
-    if EXPORT_FALLBACK_SCRIPT.exists() and run(["bash", str(EXPORT_FALLBACK_SCRIPT), str(svg_path), str(png_path), str(width), str(height)]):
+    if EXPORT_FALLBACK_SCRIPT and EXPORT_FALLBACK_SCRIPT.exists() and run(["bash", str(EXPORT_FALLBACK_SCRIPT), str(svg_path), str(png_path), str(width), str(height)]):
         return
 
     raise RuntimeError("No local SVG renderer found. Install rsvg-convert, inkscape, ImageMagick, or ensure macOS sips supports SVG.")

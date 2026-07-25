@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/NimaChu/xiaohongshu-content-creator/blob/main/references/project.schema.json",
+  "title": "Xiaohongshu Content Creator Project",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["topic", "audience", "thesis", "character", "cover", "pages"],
+  "properties": {
+    "topic": { "type": "string", "minLength": 1 },
+    "audience": { "type": "string", "minLength": 1 },
+    "thesis": { "type": "string", "minLength": 1 },
+    "language": { "type": "string", "default": "zh-CN" },
+    "character": { "type": "string", "minLength": 1 },
+    "post": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "title": { "type": "string" },
+        "body": { "type": "string" },
+        "hashtags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "maxItems": 12
+        },
+        "source_note": { "type": "string" }
+      }
+    },
+    "cover": { "$ref": "#/$defs/cover" },
+    "pages": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 10,
+      "items": { "$ref": "#/$defs/page" }
+    }
+  },
+  "$defs": {
+    "canvas": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "width": { "type": "integer", "minimum": 320, "default": 1080 },
+        "height": { "type": "integer", "minimum": 320 }
+      }
+    },
+    "cover": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["title", "composition"],
+      "properties": {
+        "title": { "type": "string", "minLength": 1, "maxLength": 30 },
+        "subtitle": { "type": "string", "maxLength": 60 },
+        "bottom_takeaway": { "type": "string", "maxLength": 60 },
+        "composition": { "type": "string", "minLength": 1 },
+        "width": { "type": "integer", "minimum": 320, "default": 1080 },
+        "height": { "type": "integer", "minimum": 320, "default": 1440 }
+      }
+    },
+    "page": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["number", "title", "archetype", "key_message", "visual", "character_pose", "flow"],
+      "properties": {
+        "number": { "type": "integer", "minimum": 1 },
+        "title": { "type": "string", "minLength": 1, "maxLength": 24 },
+        "archetype": { "type": "string", "minLength": 1 },
+        "local_kind": {
+          "type": "string",
+          "enum": ["article_page", "mechanism", "checklist", "qa", "catalog", "map", "comparison", "flow", "timeline", "article_note"]
+        },
+        "key_message": { "type": "string", "minLength": 1 },
+        "copy": {
+          "type": "array",
+          "items": { "type": "string" },
+          "maxItems": 8
+        },
+        "visual": { "type": "string", "minLength": 1 },
+        "character_pose": { "type": "string", "minLength": 1 },
+        "flow": { "type": "string", "minLength": 1 },
+        "evidence": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "width": { "type": "integer", "minimum": 320, "default": 1080 },
+        "height": { "type": "integer", "minimum": 320, "default": 1920 },
+        "theme": { "type": "string", "enum": ["auto", "light", "dark"] },
+        "density": { "type": "string", "enum": ["auto", "comfy", "compact"] },
+        "surface_style": { "type": "string", "enum": ["auto", "soft", "card", "minimal", "editorial"] },
+        "accent": { "type": "string", "enum": ["auto", "blue", "green", "warm", "rose"] }
+      }
+    }
+  }
+}
