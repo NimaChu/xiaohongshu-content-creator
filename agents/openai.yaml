@@ -1,7 +1,6 @@
 interface:
   display_name: "小红书图文创作"
   short_description: "从选题调研到封面、内页和发布文案的一站式小红书图文创作"
-  icon_small: "./assets/icon-400.png"
   icon_large: "./assets/character-sheet.png"
   brand_color: "#2F75D6"
   default_prompt: "Use $xiaohongshu-content-creator to turn my topic into a researched Xiaohongshu post with a 3:4 cover and 9:16 content pages."
