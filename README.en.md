@@ -1,12 +1,12 @@
 # Xiaohongshu Content Creator
 
-[简体中文](./README.zh-CN.md)
+[简体中文](./README.md)
 
 A Codex Agent Skill for creating complete Xiaohongshu image-and-text posts: research, fact checking, post copy, pagination, storyboards, image generation, local rendering fallback, and final QA.
 
 ## Production paths
 
-- When an image-generation tool is available, create character-consistent comic explainers using the bundled character references.
+- When an image-generation tool is available, create character-consistent comic explainers using the bundled character reference.
 - When no image-generation tool is available, render deterministic SVG-to-PNG knowledge cards locally.
 - Apply a local SVG text patch only after the user explicitly reports incorrect or unreadable text.
 

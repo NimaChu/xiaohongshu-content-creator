@@ -1,6 +1,6 @@
 # 小红书图文创作
 
-[English](./README.md)
+[English](./README.en.md)
 
 `xiaohongshu-content-creator` 是一个完整的小红书图文创作技能，负责：
 
