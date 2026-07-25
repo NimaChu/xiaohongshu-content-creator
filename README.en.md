@@ -2,7 +2,9 @@
 
 [简体中文](./README.md)
 
-A Codex Agent Skill for creating complete Xiaohongshu image-and-text posts: research, fact checking, post copy, pagination, storyboards, image generation, local rendering fallback, and final QA.
+A cross-agent skill for creating complete Xiaohongshu image-and-text posts. It is not tied to one coding assistant or runtime: Claude Code, OpenCode, OpenClaw, Hermes, Codex, and any other agent that can read `SKILL.md` and invoke local scripts or image tools can use it.
+
+The skill covers research, fact checking, post copy, pagination, storyboards, image generation, local rendering fallback, and final QA.
 
 ## Production paths
 
@@ -32,10 +34,26 @@ output/<topic>/
 └── qa-report.md
 ```
 
-## Use in Codex
+## Use with different agents
+
+Clone the repository:
+
+```bash
+git clone https://github.com/NimaChu/xiaohongshu-content-creator.git
+cd xiaohongshu-content-creator
+```
+
+Install it according to the skill-directory convention of Claude Code, OpenCode, OpenClaw, Hermes, Codex, or your chosen agent. You can also ask the agent to read the root `SKILL.md` directly. If the agent supports `$skill-name` invocation, use:
 
 ```text
 Use $xiaohongshu-content-creator to research RAG and create one 3:4 cover
+plus six 9:16 Xiaohongshu comic explainer pages.
+```
+
+Otherwise, use:
+
+```text
+Read this repository's SKILL.md, research RAG, and create one 3:4 cover
 plus six 9:16 Xiaohongshu comic explainer pages.
 ```
 
@@ -65,7 +83,7 @@ python3 scripts/make_prompt_pack.py \
 
 ## Compatibility
 
-The original `scripts/free_image_gen.py` CLI and its story-plan references remain available for existing local-rendering workflows. The public skill name is now `xiaohongshu-content-creator`.
+The original `scripts/free_image_gen.py` CLI and its story-plan references remain available for existing local-rendering workflows. `agents/openai.yaml` provides optional client UI metadata and does not restrict the skill to any one agent.
 
 ## Tests
 

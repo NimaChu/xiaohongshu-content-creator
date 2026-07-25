@@ -2,7 +2,9 @@
 
 [English](./README.en.md)
 
-`xiaohongshu-content-creator` 是一个完整的小红书图文创作技能，负责：
+`xiaohongshu-content-creator` 是一个跨 Agent 的小红书图文创作技能，不绑定特定编码助手或运行时。Claude Code、OpenCode、OpenClaw、Hermes、Codex，以及其他能够读取 `SKILL.md` 并调用本地脚本或生图工具的 Agent 都可以使用。
+
+技能负责：
 
 - 调研与事实核验
 - 小红书标题、正文和标签
@@ -35,14 +37,30 @@
 
 默认生成 1 张封面和 5–8 张内页，一页只讲一个核心观点。
 
-## 在 Codex 中使用
+## 在不同 Agent 中使用
+
+克隆仓库：
+
+```bash
+git clone https://github.com/NimaChu/xiaohongshu-content-creator.git
+cd xiaohongshu-content-creator
+```
+
+根据 Claude Code、OpenCode、OpenClaw、Hermes、Codex 或其他 Agent 的技能目录约定安装本仓库，或者直接让 Agent 读取仓库根目录的 `SKILL.md`。如果当前 Agent 支持 `$skill-name` 调用方式，可以直接使用：
 
 ```text
 使用 $xiaohongshu-content-creator，先调研“RAG 为什么不是给模型安装知识”，
 再生成一张 3:4 封面和 6 张 9:16 小红书漫画科普图。
 ```
 
-技能会根据当前工具自动决定使用生图模型还是本地渲染，不需要用户提前选择模式。
+如果不支持 `$skill-name`，可以改为：
+
+```text
+请读取本仓库的 SKILL.md，先调研“RAG 为什么不是给模型安装知识”，
+再生成一张 3:4 封面和 6 张 9:16 小红书漫画科普图。
+```
+
+技能会根据当前 Agent 可用的工具自动决定使用生图模型还是本地渲染，不需要用户提前选择模式。
 
 ## 项目产物
 
@@ -109,7 +127,7 @@ python3 scripts/patch_image_text.py \
 
 ## 兼容性
 
-原 `scripts/free_image_gen.py` 和 Story Plan 接口继续保留，已有本地工作流仍可使用。对外的技能名称和定位统一为 `xiaohongshu-content-creator`。
+原 `scripts/free_image_gen.py` 和 Story Plan 接口继续保留，已有本地工作流仍可使用。`agents/openai.yaml` 只提供支持该元数据格式的客户端界面信息，不限制其他 Agent 使用本技能。
 
 ## 测试
 
