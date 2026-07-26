@@ -32,7 +32,7 @@ def cover_prompt(project: dict[str, Any]) -> str:
     width = cover.get("width", 1080)
     height = cover.get("height", 1440)
     exact = [cover["title"], cover.get("subtitle", ""), cover.get("bottom_takeaway", "")]
-    return f"""# 00 Cover — 3:4
+    return f"""# Cover — 3:4
 
 生成一张竖版 3:4 小红书漫画图文封面，输出 {width}×{height}。
 
@@ -81,9 +81,10 @@ def page_prompt(project: dict[str, Any], page: dict[str, Any]) -> str:
     width = page.get("width", 1080)
     height = page.get("height", 1920)
     exact = [page["title"], page["key_message"], *page.get("copy", [])]
-    return f"""# {page['number']:02d} {page['title']} — 9:16
+    return f"""# Inner page — {page['title']} — 9:16
 
 生成一张竖版 9:16 小红书漫画科普信息图，输出 {width}×{height}。一页只解释一个核心概念。
+禁止显示任何页码、总页数或分页位置标记。页面顺序只存在于文件名中。只有在解释流程、排名或清单本身时，才允许使用有语义的步骤编号。
 
 ## Page role
 - Archetype: {page['archetype']}
@@ -125,7 +126,7 @@ Use `{profile['character_reference']}` as the only image reference. Preserve ide
 ## Negative constraints
 {profile['negative_constraints']}
 
-文本必须准确、清楚、完整。优先保留标题、核心句和关键标签；不要自行添加大段解释。
+文本必须准确、清楚、完整。优先保留标题、核心句和关键标签；不要自行添加大段解释、页码或分页角标。
 """
 
 

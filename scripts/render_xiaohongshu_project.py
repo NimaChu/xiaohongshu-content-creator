@@ -114,7 +114,6 @@ def build_page_prompt(page: dict[str, Any]) -> str:
     local_copy = local_copy_for_kind(kind, copy)
     parts = [
         f"信息图 {label}",
-        f"角标：{page['number']:02d}",
         f"标题：{page['title']}",
         f"副标题：{page['key_message']}",
         _numbered_copy(local_copy),

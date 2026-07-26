@@ -77,7 +77,7 @@ Do not combine a comparison, a grid, and a workflow unless the key idea cannot b
 
 - Arrow: direction, transition, control flow, or cause and effect.
 - Underline: the exact phrase to remember.
-- Numbered block: page number or ordered step.
+- Numbered block: an ordered content step only; never use it as a page number or page-position marker.
 - Speech bubble: one short spoken line.
 - Supporting card or note: secondary explanation only.
 - Black terminal panel: real command or system action.
@@ -87,4 +87,4 @@ Apply the selected profile's palette and line treatment to these elements.
 
 ## 7. Negative constraints
 
-Avoid stick figures, photorealism, 3D rendering, glossy anime, cyberpunk palettes, dense corporate dashboards, formal flowcharts, long paragraphs, tiny text, unrelated decoration, a passive mascot, inconsistent profile identity, fake UI text, malformed commands, unwanted watermarks, and cropped titles or summaries.
+Avoid stick figures, photorealism, 3D rendering, glossy anime, cyberpunk palettes, dense corporate dashboards, formal flowcharts, long paragraphs, tiny text, unrelated decoration, a passive mascot, inconsistent profile identity, fake UI text, malformed commands, visible page numbers or page counts, unwanted watermarks, and cropped titles or summaries.

@@ -34,6 +34,7 @@
 - [ ] The hierarchy is obvious within two seconds.
 - [ ] No title, hand, face, or bottom strip is cropped.
 - [ ] Whitespace is sufficient.
+- [ ] No visible page number, page count, or page-position marker appears. Numbers are used only when they explain ordered content steps.
 
 ## Image defects
 
@@ -66,4 +67,5 @@ For each failure, repair the image or prompt and then run the same check again. 
 | Text is too long | Move explanation to `post.md`; retain only title, anchor sentence, and short labels | All image text is readable at phone size |
 | Text is wrong or unreadable | Regenerate or edit locally; use SVG overlay only after explicit user feedback | Exact required copy is legible and correct |
 | Crop or ratio is wrong | Recompose inside safe margins and export again | Cover is 3:4; pages are 9:16; no key element is clipped |
+| Page number or page-position marker appears | Remove `04`, `01/08`, `PAGE 04`, or any equivalent pagination badge; keep order in filenames only | No pagination marker is visible; meaningful content-step numbers may remain |
 | Fact or product detail is unsupported | Correct from a primary source or remove the claim | `research.md` supports the final wording |

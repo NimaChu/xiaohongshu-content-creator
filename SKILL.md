@@ -38,6 +38,7 @@ If the user requests only part of the package, create only that part. Never clai
 - Use Simplified Chinese unless requested otherwise.
 - Explain one dominant idea per page.
 - Optimize titles and labels for phone reading.
+- Do not render page numbers or page-position markers such as `04`, `01/08`, or `PAGE 04`. Keep ordering only in filenames. Numbered steps are allowed when the numbers explain the content itself.
 - Default to the `alpaca-line-art` profile: pure-white background, fine black hand-drawn lines, and the bundled white alpaca creator IP.
 - Preserve `glasses-chibi-blue` as a selectable profile for the original glasses-wearing host, warm off-white paper, and cobalt-blue comic style.
 - Make the character perform the page's core conceptual action; never use it as corner decoration.
@@ -60,6 +61,8 @@ Determine or infer:
 Use beginner-friendly AI/technology education as the default audience and tone when the request does not specify them.
 
 Store the choice in `project.json` as `visual_profile`. Honor an explicit user choice; otherwise use the default declared in `references/visual-profiles.json`. Use one profile for the whole series unless the user explicitly requests otherwise.
+
+When reviewing pages the user selected or rejected, distinguish explicit feedback from inferred preference. Treat only explicitly confirmed rules as durable defaults; use the final selection primarily to understand visual appeal and expression accuracy rather than infer rigid layout rules.
 
 ### 2. Research before writing
 
@@ -118,7 +121,7 @@ Use it as the default path.
 1. Resolve the selected profile in `references/visual-profiles.json`.
 2. Use that profile's `character_reference` as the only bundled image reference. Never attach multiple profile references to one generation call.
 3. Generate the cover and one representative inner page first.
-4. Inspect character identity, core action, metaphor originality, typography, spacing, color, and copy accuracy.
+4. Inspect character identity, core action, metaphor originality, typography, spacing, color, copy accuracy, and absence of page-position markers.
 5. Lock the successful visual description.
 6. Generate the remaining pages using the same reference and style lock.
 7. Save files as `cover.png`, `page-01.png`, and so on.
@@ -173,6 +176,7 @@ Write `qa-report.md`. For every failed check, record the defect, repair action, 
 - valid diagram flow;
 - no cropped titles, faces, hands, or summaries;
 - no unsupported factual claims or invented quotations;
+- no visible page number, page count, or page-position marker; content-level numbered steps remain allowed;
 - ordered, stable filenames.
 
 Run:
