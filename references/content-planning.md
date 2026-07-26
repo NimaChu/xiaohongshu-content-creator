@@ -3,10 +3,11 @@
 ## Contents
 
 1. Teaching arc
-2. Page archetypes
-3. Copy limits
-4. Storyboard contract
-5. Post copy
+2. Cognitive-anchor page selection
+3. Page archetypes
+4. Copy limits
+5. Storyboard contract
+6. Post copy
 
 ## 1. Teaching arc
 
@@ -22,7 +23,24 @@ Build a progressive story rather than disconnected cards. A reliable sequence is
 
 The cover should create curiosity instead of summarizing every page.
 
-## 2. Page archetypes
+## 2. Cognitive-anchor page selection
+
+Do not split the source evenly or create one page per paragraph. First list candidate moments, then keep only the moments that materially change the reader's mental model.
+
+Strong cognitive anchors include:
+
+- a core judgment the reader should remember;
+- a cognitive turn that replaces an intuitive but wrong model;
+- a meaningful comparison;
+- an input/output break, bottleneck, or feedback loop;
+- a boundary, limitation, or human-control point;
+- a common mistake with a visible consequence;
+- a character or system state change;
+- a final relationship that compresses the whole topic.
+
+For each candidate, write one sentence answering: “If this page disappears, what understanding is lost?” Drop candidates with no concrete answer. Merge adjacent anchors that teach the same relationship. Default to 5–8 inner pages, but stop when the arc is complete.
+
+## 3. Page archetypes
 
 ### Cover
 
@@ -60,7 +78,7 @@ Show that humans set goals, grant permissions, review results, and adjust direct
 
 Use one memorable sentence and one simple relationship diagram. Do not repeat every previous bullet.
 
-## 3. Copy limits
+## 4. Copy limits
 
 - Cover title: prefer 6–16 Chinese characters, with an optional short subtitle.
 - Page title: prefer 5–14 Chinese characters.
@@ -69,13 +87,16 @@ Use one memorable sentence and one simple relationship diagram. Do not repeat ev
 - Avoid paragraphs, repeated conclusions, and unexplained jargon inside images.
 - Use conversational contrasts only when they improve understanding.
 
-## 4. Storyboard contract
+## 5. Storyboard contract
 
 For every page specify:
 
 - page number and archetype;
+- cognitive-anchor type and why it deserves a page;
 - exact title and one key message;
-- visual metaphor or action;
+- abstract concept, physical action, and ordinary object;
+- resolved visual metaphor;
+- the character's indispensable core action;
 - character pose and expression;
 - supporting objects;
 - arrows or reading flow;
@@ -83,7 +104,7 @@ For every page specify:
 - evidence or source notes;
 - continuity requirements.
 
-## 5. Post copy
+## 6. Post copy
 
 Write `post.md` with:
 

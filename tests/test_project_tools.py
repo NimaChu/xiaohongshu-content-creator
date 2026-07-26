@@ -15,7 +15,7 @@ if str(SCRIPTS) not in sys.path:
 
 from check_png_ratios import png_size
 from make_prompt_pack import cover_prompt, page_prompt
-from patch_image_text import build_patch_svg
+from patch_image_text import build_patch_svg, resolve_patch_background
 from render_xiaohongshu_project import build_render_plan, infer_local_kind, local_copy_for_kind
 from validate_project import validate
 
@@ -37,6 +37,22 @@ class ProjectToolsTests(unittest.TestCase):
         errors = validate(project)
         self.assertTrue(any("3:4" in error or "0.7500" in error for error in errors))
         self.assertIn("Use 4–10 information pages", errors)
+
+    def test_validator_requires_anchor_metaphor_and_core_character_action(self) -> None:
+        project = deepcopy(self.project)
+        project["pages"][0].pop("cognitive_anchor")
+        project["pages"][1]["metaphor"]["physical_action"] = ""
+        project["pages"][2]["character_action"] = ""
+        errors = validate(project)
+        self.assertTrue(any("cognitive_anchor" in error for error in errors))
+        self.assertTrue(any("metaphor.physical_action" in error for error in errors))
+        self.assertTrue(any("character_action" in error for error in errors))
+
+    def test_validator_rejects_unknown_visual_profile(self) -> None:
+        project = deepcopy(self.project)
+        project["visual_profile"] = "future-profile-not-registered"
+        errors = validate(project)
+        self.assertTrue(any("Unknown visual_profile" in error for error in errors))
 
     def test_render_plan_uses_mixed_xiaohongshu_ratios(self) -> None:
         plan = build_render_plan(self.project)
@@ -72,6 +88,27 @@ class ProjectToolsTests(unittest.TestCase):
         self.assertIn("9:16", page)
         self.assertIn("1080×1920", page)
         self.assertIn(self.project["pages"][0]["key_message"], page)
+        self.assertIn("Cognitive anchor", page)
+        self.assertIn("Original visual metaphor", page)
+        self.assertIn(self.project["pages"][0]["character_action"], page)
+        self.assertIn("alpaca-line-art", page)
+        self.assertIn(
+            "assets/characters/alpaca-line-art/character-sheet.png",
+            page,
+        )
+        self.assertIn("纯白背景", page)
+
+    def test_prompt_pack_can_select_legacy_visual_profile(self) -> None:
+        project = deepcopy(self.project)
+        project["visual_profile"] = "glasses-chibi-blue"
+        page = page_prompt(project, project["pages"][0])
+        self.assertIn("glasses-chibi-blue", page)
+        self.assertIn(
+            "assets/characters/glasses-chibi-blue/character-sheet.png",
+            page,
+        )
+        self.assertIn("暖米白纸张质感背景", page)
+        self.assertNotIn("白色羊驼", page)
 
     def test_png_header_reader(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -99,7 +136,7 @@ class ProjectToolsTests(unittest.TestCase):
                 180,
                 "正确文字 & AI",
                 72,
-                "#F6F3ED",
+                "#FFFFFF",
                 "#101010",
                 "center",
                 18,
@@ -107,6 +144,17 @@ class ProjectToolsTests(unittest.TestCase):
             self.assertIn("data:image/png;base64", svg)
             self.assertIn("正确文字 &amp; AI", svg)
             self.assertIn('x="100"', svg)
+
+    def test_text_patch_uses_selected_profile_background(self) -> None:
+        self.assertEqual(resolve_patch_background(None, "alpaca-line-art"), "#FFFFFF")
+        self.assertEqual(
+            resolve_patch_background(None, "glasses-chibi-blue"),
+            "#F6F3ED",
+        )
+        self.assertEqual(
+            resolve_patch_background("#ABCDEF", "glasses-chibi-blue"),
+            "#ABCDEF",
+        )
 
 
 if __name__ == "__main__":

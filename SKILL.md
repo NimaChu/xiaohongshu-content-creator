@@ -38,9 +38,11 @@ If the user requests only part of the package, create only that part. Never clai
 - Use Simplified Chinese unless requested otherwise.
 - Explain one dominant idea per page.
 - Optimize titles and labels for phone reading.
-- Use the bundled glasses-wearing chibi host and visual system unless the user supplies another character or brand direction.
+- Default to the `alpaca-line-art` profile: pure-white background, fine black hand-drawn lines, and the bundled white alpaca creator IP.
+- Preserve `glasses-chibi-blue` as a selectable profile for the original glasses-wearing host, warm off-white paper, and cobalt-blue comic style.
+- Make the character perform the page's core conceptual action; never use it as corner decoration.
 
-Read [references/visual-style.md](references/visual-style.md) and [references/character-consistency.md](references/character-consistency.md) before producing images.
+Read [references/visual-profiles.md](references/visual-profiles.md), [references/visual-style.md](references/visual-style.md), and [references/character-consistency.md](references/character-consistency.md) before producing images.
 
 ## Workflow
 
@@ -52,10 +54,12 @@ Determine or infer:
 - the single sentence readers should remember;
 - source material and whether facts may have changed;
 - page count and language;
-- character, palette, and brand constraints;
+- selected visual profile, character, palette, and brand constraints;
 - whether the user wants a complete package, images, copy, or prompts.
 
 Use beginner-friendly AI/technology education as the default audience and tone when the request does not specify them.
+
+Store the choice in `project.json` as `visual_profile`. Honor an explicit user choice; otherwise use the default declared in `references/visual-profiles.json`. Use one profile for the whole series unless the user explicitly requests otherwise.
 
 ### 2. Research before writing
 
@@ -74,9 +78,18 @@ Create:
 - one limitation, boundary, or human-control point;
 - one final takeaway.
 
+Select pages by cognitive anchors instead of distributing content evenly. Keep only moments that change what the reader understands: a core judgment, cognitive turn, comparison, bottleneck, boundary, common mistake, state change, or takeaway. Drop a page when removing it does not weaken the learning arc.
+
+For every selected page:
+
+1. state the cognitive anchor and why it deserves a page;
+2. convert the abstract concept into a physical action;
+3. map that action to one ordinary low-tech object;
+4. make the character perform the action so the metaphor depends on the character.
+
 Write `post.md` with a Xiaohongshu title, publishable body copy, optional source note, and relevant hashtags. Write `storyboard.md` before generating images.
 
-Read [references/content-planning.md](references/content-planning.md) when choosing page structures and reducing copy.
+Read [references/content-planning.md](references/content-planning.md) when choosing pages and reducing copy. Read [references/visual-metaphors.md](references/visual-metaphors.md) before writing the storyboard or image prompts.
 
 ### 4. Create and validate the project
 
@@ -102,12 +115,13 @@ python3 scripts/make_prompt_pack.py \
 
 Use it as the default path.
 
-1. Use `assets/character-sheet.png` as the only bundled character image reference.
-2. Generate the cover and one representative inner page first.
-3. Inspect character identity, typography, spacing, color, and copy accuracy.
-4. Lock the successful visual description.
-5. Generate the remaining pages using the same references and style lock.
-6. Save files as `cover.png`, `page-01.png`, and so on.
+1. Resolve the selected profile in `references/visual-profiles.json`.
+2. Use that profile's `character_reference` as the only bundled image reference. Never attach multiple profile references to one generation call.
+3. Generate the cover and one representative inner page first.
+4. Inspect character identity, core action, metaphor originality, typography, spacing, color, and copy accuracy.
+5. Lock the successful visual description.
+6. Generate the remaining pages using the same reference and style lock.
+7. Save files as `cover.png`, `page-01.png`, and so on.
 
 Do not invoke the local renderer merely to pre-empt possible text errors.
 
@@ -135,6 +149,7 @@ Do not create a separate hybrid workflow. If the user explicitly identifies inco
 python3 scripts/patch_image_text.py \
   --input /absolute/path/page.png \
   --output /absolute/path/page-fixed.png \
+  --visual-profile <selected-profile> \
   --x 100 --y 300 --width 880 --height 180 \
   --text "正确文字"
 ```
@@ -145,12 +160,16 @@ Never apply an SVG text patch speculatively.
 
 ### 7. Inspect every output
 
-Write `qa-report.md` and verify:
+Write `qa-report.md`. For every failed check, record the defect, repair action, and recheck result; do not stop at listing problems. Verify:
 
 - correct ratio and orientation;
 - readable, accurate Chinese and product names;
+- background, line treatment, palette, and typography match the selected visual profile;
 - one dominant idea per page;
-- stable character, outfit, glasses, hair, and proportions;
+- a meaningful cognitive anchor on every page;
+- an original physical metaphor with one primary structure;
+- the character performs the metaphor's core action;
+- stable profile-specific character identity and proportions;
 - valid diagram flow;
 - no cropped titles, faces, hands, or summaries;
 - no unsupported factual claims or invented quotations;

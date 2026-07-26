@@ -4,13 +4,13 @@
   "title": "Xiaohongshu Content Creator Project",
   "type": "object",
   "additionalProperties": true,
-  "required": ["topic", "audience", "thesis", "character", "cover", "pages"],
+  "required": ["topic", "audience", "thesis", "visual_profile", "cover", "pages"],
   "properties": {
     "topic": { "type": "string", "minLength": 1 },
     "audience": { "type": "string", "minLength": 1 },
     "thesis": { "type": "string", "minLength": 1 },
     "language": { "type": "string", "default": "zh-CN" },
-    "character": { "type": "string", "minLength": 1 },
+    "visual_profile": { "type": "string", "minLength": 1 },
     "post": {
       "type": "object",
       "additionalProperties": true,
@@ -45,12 +45,15 @@
     "cover": {
       "type": "object",
       "additionalProperties": true,
-      "required": ["title", "composition"],
+      "required": ["title", "composition", "cognitive_anchor", "metaphor", "character_action"],
       "properties": {
         "title": { "type": "string", "minLength": 1, "maxLength": 30 },
         "subtitle": { "type": "string", "maxLength": 60 },
         "bottom_takeaway": { "type": "string", "maxLength": 60 },
+        "cognitive_anchor": { "$ref": "#/$defs/cognitive_anchor" },
+        "metaphor": { "$ref": "#/$defs/metaphor" },
         "composition": { "type": "string", "minLength": 1 },
+        "character_action": { "type": "string", "minLength": 1 },
         "width": { "type": "integer", "minimum": 320, "default": 1080 },
         "height": { "type": "integer", "minimum": 320, "default": 1440 }
       }
@@ -58,7 +61,7 @@
     "page": {
       "type": "object",
       "additionalProperties": true,
-      "required": ["number", "title", "archetype", "key_message", "visual", "character_pose", "flow"],
+      "required": ["number", "title", "archetype", "key_message", "cognitive_anchor", "metaphor", "visual", "character_action", "character_pose", "flow"],
       "properties": {
         "number": { "type": "integer", "minimum": 1 },
         "title": { "type": "string", "minLength": 1, "maxLength": 24 },
@@ -73,7 +76,10 @@
           "items": { "type": "string" },
           "maxItems": 8
         },
+        "cognitive_anchor": { "$ref": "#/$defs/cognitive_anchor" },
+        "metaphor": { "$ref": "#/$defs/metaphor" },
         "visual": { "type": "string", "minLength": 1 },
+        "character_action": { "type": "string", "minLength": 1 },
         "character_pose": { "type": "string", "minLength": 1 },
         "flow": { "type": "string", "minLength": 1 },
         "evidence": {
@@ -86,6 +92,25 @@
         "density": { "type": "string", "enum": ["auto", "comfy", "compact"] },
         "surface_style": { "type": "string", "enum": ["auto", "soft", "card", "minimal", "editorial"] },
         "accent": { "type": "string", "enum": ["auto", "blue", "green", "warm", "rose"] }
+      }
+    },
+    "cognitive_anchor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "reason"],
+      "properties": {
+        "type": { "type": "string", "minLength": 1 },
+        "reason": { "type": "string", "minLength": 1 }
+      }
+    },
+    "metaphor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["concept", "physical_action", "everyday_object"],
+      "properties": {
+        "concept": { "type": "string", "minLength": 1 },
+        "physical_action": { "type": "string", "minLength": 1 },
+        "everyday_object": { "type": "string", "minLength": 1 }
       }
     }
   }
