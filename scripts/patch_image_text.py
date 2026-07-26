@@ -11,6 +11,7 @@ from pathlib import Path
 
 from check_png_ratios import png_size
 from free_image_gen import export_svg_to_png
+from validate_project import load_visual_profiles
 
 
 def wrap_text(text: str, max_units: int) -> list[str]:
@@ -70,6 +71,20 @@ def build_patch_svg(
 """
 
 
+def resolve_patch_background(background: str | None, visual_profile: str | None) -> str:
+    if background:
+        return background
+    registry = load_visual_profiles()
+    profile_id = visual_profile or registry.get("default")
+    profile = registry["profiles"].get(profile_id)
+    if not isinstance(profile, dict):
+        raise ValueError(f"Unknown visual profile: {profile_id!r}")
+    value = profile.get("patch_background")
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f"Visual profile {profile_id!r} has no patch_background")
+    return value
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path, required=True)
@@ -80,7 +95,11 @@ def main() -> int:
     parser.add_argument("--height", type=int, required=True)
     parser.add_argument("--text", required=True)
     parser.add_argument("--font-size", type=int, default=72)
-    parser.add_argument("--background", default="#F6F3ED")
+    parser.add_argument(
+        "--visual-profile",
+        help="Use this profile's patch background; defaults to the registry default",
+    )
+    parser.add_argument("--background", help="Explicit patch fill; overrides --visual-profile")
     parser.add_argument("--foreground", default="#101010")
     parser.add_argument("--align", choices=["left", "center"], default="center")
     parser.add_argument("--radius", type=int, default=18)
@@ -97,6 +116,7 @@ def main() -> int:
         if args.x < 0 or args.y < 0 or args.x + args.width > canvas_width or args.y + args.height > canvas_height:
             raise ValueError("Patch region must stay inside the source image")
 
+        background = resolve_patch_background(args.background, args.visual_profile)
         svg = build_patch_svg(
             input_path,
             canvas_width,
@@ -107,7 +127,7 @@ def main() -> int:
             args.height,
             args.text,
             args.font_size,
-            args.background,
+            background,
             args.foreground,
             args.align,
             args.radius,

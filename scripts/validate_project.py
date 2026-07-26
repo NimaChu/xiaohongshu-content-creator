@@ -8,14 +8,24 @@ import json
 from pathlib import Path
 from typing import Any
 
-REQUIRED_TOP = {"topic", "audience", "thesis", "character", "cover", "pages"}
-REQUIRED_COVER = {"title", "composition"}
+PROFILE_REGISTRY_PATH = Path(__file__).resolve().parents[1] / "references" / "visual-profiles.json"
+REQUIRED_TOP = {"topic", "audience", "thesis", "visual_profile", "cover", "pages"}
+REQUIRED_COVER = {
+    "title",
+    "composition",
+    "cognitive_anchor",
+    "metaphor",
+    "character_action",
+}
 REQUIRED_PAGE = {
     "number",
     "title",
     "archetype",
     "key_message",
+    "cognitive_anchor",
+    "metaphor",
     "visual",
+    "character_action",
     "character_pose",
     "flow",
 }
@@ -31,6 +41,25 @@ SUPPORTED_LOCAL_KINDS = {
     "timeline",
     "article_note",
 }
+
+
+def load_visual_profiles() -> dict[str, Any]:
+    data = json.loads(PROFILE_REGISTRY_PATH.read_text(encoding="utf-8"))
+    if not isinstance(data, dict) or not isinstance(data.get("profiles"), dict):
+        raise ValueError("visual-profiles.json must contain a profiles object")
+    return data
+
+
+def resolve_visual_profile(project: dict[str, Any]) -> tuple[str, dict[str, Any]]:
+    registry = load_visual_profiles()
+    profile_id = project.get("visual_profile", registry.get("default"))
+    profiles = registry["profiles"]
+    if not isinstance(profile_id, str) or profile_id not in profiles:
+        raise ValueError(f"Unknown visual_profile: {profile_id!r}")
+    profile = profiles[profile_id]
+    if not isinstance(profile, dict):
+        raise ValueError(f"Visual profile {profile_id!r} must be an object")
+    return profile_id, profile
 
 
 def text_len(value: Any) -> int:
@@ -58,6 +87,29 @@ def _validate_dimensions(
         errors.append(f"{where} must use a {expected_ratio:.4f} aspect ratio; got {width}x{height}")
 
 
+def _validate_cognitive_anchor(errors: list[str], where: str, value: Any) -> None:
+    if not isinstance(value, dict):
+        errors.append(f"{where} cognitive_anchor must be an object")
+        return
+    for field in ("type", "reason"):
+        if not isinstance(value.get(field), str) or not value[field].strip():
+            errors.append(f"{where} cognitive_anchor.{field} must be a non-empty string")
+
+
+def _validate_metaphor(errors: list[str], where: str, value: Any) -> None:
+    if not isinstance(value, dict):
+        errors.append(f"{where} metaphor must be an object")
+        return
+    for field in ("concept", "physical_action", "everyday_object"):
+        if not isinstance(value.get(field), str) or not value[field].strip():
+            errors.append(f"{where} metaphor.{field} must be a non-empty string")
+
+
+def _validate_character_action(errors: list[str], where: str, value: Any) -> None:
+    if not isinstance(value, str) or not value.strip():
+        errors.append(f"{where} character_action must be a non-empty string")
+
+
 def validate(data: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     if not isinstance(data, dict):
@@ -68,9 +120,39 @@ def validate(data: dict[str, Any]) -> list[str]:
         errors.append(f"Missing top-level fields: {sorted(missing)}")
         return errors
 
-    for field in ("topic", "audience", "thesis", "character"):
+    for field in ("topic", "audience", "thesis", "visual_profile"):
         if not isinstance(data.get(field), str) or not data[field].strip():
             errors.append(f"{field} must be a non-empty string")
+
+    try:
+        profile_id, profile = resolve_visual_profile(data)
+    except (OSError, json.JSONDecodeError, ValueError) as exc:
+        errors.append(str(exc))
+    else:
+        required_profile = {
+            "label",
+            "character_reference",
+            "character",
+            "style_lock",
+            "negative_constraints",
+            "patch_background",
+        }
+        missing_profile = required_profile - profile.keys()
+        if missing_profile:
+            errors.append(
+                f"Visual profile {profile_id!r} missing fields: {sorted(missing_profile)}"
+            )
+        reference = profile.get("character_reference")
+        if isinstance(reference, str) and reference.strip():
+            reference_path = Path(__file__).resolve().parents[1] / reference
+            if not reference_path.is_file():
+                errors.append(
+                    f"Visual profile {profile_id!r} character reference not found: {reference}"
+                )
+        else:
+            errors.append(
+                f"Visual profile {profile_id!r} character_reference must be a non-empty string"
+            )
 
     cover = data["cover"]
     if not isinstance(cover, dict):
@@ -81,6 +163,9 @@ def validate(data: dict[str, Any]) -> list[str]:
             errors.append(f"Missing cover fields: {sorted(missing_cover)}")
         if text_len(cover.get("title", "")) > 30:
             errors.append("Cover title is too long; keep it under 30 characters")
+        _validate_cognitive_anchor(errors, "cover", cover.get("cognitive_anchor"))
+        _validate_metaphor(errors, "cover", cover.get("metaphor"))
+        _validate_character_action(errors, "cover", cover.get("character_action"))
         _validate_dimensions(errors, "cover", cover, 1080, 1440, 3 / 4)
 
     pages = data["pages"]
@@ -105,6 +190,13 @@ def validate(data: dict[str, Any]) -> list[str]:
             errors.append(f"Page {index} number must be an integer")
         if text_len(page.get("title", "")) > 24:
             errors.append(f"Page {index} title is too long")
+        _validate_cognitive_anchor(
+            errors, f"Page {index}", page.get("cognitive_anchor")
+        )
+        _validate_metaphor(errors, f"Page {index}", page.get("metaphor"))
+        _validate_character_action(
+            errors, f"Page {index}", page.get("character_action")
+        )
         copy = page.get("copy", [])
         if not isinstance(copy, list) or any(not isinstance(item, str) for item in copy):
             errors.append(f"Page {index} copy must be a list of strings")

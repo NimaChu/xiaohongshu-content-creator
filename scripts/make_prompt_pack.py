@@ -7,29 +7,28 @@ import argparse
 from pathlib import Path
 from typing import Any
 
-from validate_project import load_and_validate
-
-STYLE_LOCK = (
-    "暖米白纸张质感背景；固定的呆萌眼镜漫画主持人：短黑发、透明灰色矩形眼镜、"
-    "深灰圆领卫衣、黑色长裤、白色运动鞋，头大身小但不是火柴人；干净黑色描边和"
-    "轻柔平涂；超大黑色手写感标题；钴蓝色笔刷、箭头、下划线和编号块；少量浅蓝"
-    "圆角卡片；仅在语义图标上使用少量暖黄色；大量留白；适合小红书快速滑阅；"
-    "人物身份、发型、眼镜、服装和比例跨页完全一致。"
-)
-
-NEGATIVE = (
-    "不要写实摄影，不要3D，不要火柴人，不要赛博朋克，不要复杂背景，不要多色渐变，"
-    "不要企业仪表盘，不要长段落，不要小字号，不要错误中文，不要错误英文产品名，"
-    "不要乱码代码，不要多余水印，不要裁切标题、人物头部或底部总结。"
-)
+from validate_project import load_and_validate, resolve_visual_profile
 
 
 def quote_lines(lines: list[str]) -> str:
     return "\n".join(f"- {line}" for line in lines if line)
 
 
+def cognitive_anchor_text(value: dict[str, Any]) -> str:
+    return f"- Type: {value['type']}\n- Why this deserves a page: {value['reason']}"
+
+
+def metaphor_text(value: dict[str, Any]) -> str:
+    return (
+        f"- Abstract concept: {value['concept']}\n"
+        f"- Physical action: {value['physical_action']}\n"
+        f"- Ordinary object: {value['everyday_object']}"
+    )
+
+
 def cover_prompt(project: dict[str, Any]) -> str:
     cover = project["cover"]
+    profile_id, profile = resolve_visual_profile(project)
     width = cover.get("width", 1080)
     height = cover.get("height", 1440)
     exact = [cover["title"], cover.get("subtitle", ""), cover.get("bottom_takeaway", "")]
@@ -43,26 +42,42 @@ def cover_prompt(project: dict[str, Any]) -> str:
 ## Audience
 {project['audience']}
 
+## Visual profile
+{profile_id} — {profile['label']}
+
 ## Exact copy
 {quote_lines(exact)}
+
+## Cognitive anchor
+{cognitive_anchor_text(cover['cognitive_anchor'])}
+
+## Original visual metaphor — three steps
+{metaphor_text(cover['metaphor'])}
 
 ## Composition
 {cover['composition']}
 
+## Core character action
+{cover['character_action']}
+
 ## Character
-{project['character']}
+{profile['character']}
+
+## Character reference
+Use `{profile['character_reference']}` as the only image reference. Preserve identity, not the reference composition.
 
 ## Style lock
-{STYLE_LOCK}
+{profile['style_lock']}
 
 ## Negative constraints
-{NEGATIVE}
+{profile['negative_constraints']}
 
 确保封面在缩略图尺寸下仍能读清主题。不要把内页的全部知识点塞进封面。
 """
 
 
 def page_prompt(project: dict[str, Any], page: dict[str, Any]) -> str:
+    profile_id, profile = resolve_visual_profile(project)
     width = page.get("width", 1080)
     height = page.get("height", 1920)
     exact = [page["title"], page["key_message"], *page.get("copy", [])]
@@ -74,26 +89,41 @@ def page_prompt(project: dict[str, Any], page: dict[str, Any]) -> str:
 - Archetype: {page['archetype']}
 - Key message: {page['key_message']}
 
+## Visual profile
+{profile_id} — {profile['label']}
+
 ## Exact copy
 {quote_lines(exact)}
+
+## Cognitive anchor
+{cognitive_anchor_text(page['cognitive_anchor'])}
+
+## Original visual metaphor — three steps
+{metaphor_text(page['metaphor'])}
 
 ## Visual narrative
 {page['visual']}
 
-## Character pose
+## Core character action
+{page['character_action']}
+
+## Character pose and expression
 {page['character_pose']}
 
 ## Diagram and reading flow
 {page['flow']}
 
 ## Character
-{project['character']}
+{profile['character']}
+
+## Character reference
+Use `{profile['character_reference']}` as the only image reference. Preserve identity, not the reference composition.
 
 ## Style lock
-{STYLE_LOCK}
+{profile['style_lock']}
 
 ## Negative constraints
-{NEGATIVE}
+{profile['negative_constraints']}
 
 文本必须准确、清楚、完整。优先保留标题、核心句和关键标签；不要自行添加大段解释。
 """

@@ -2,75 +2,89 @@
 
 ## Contents
 
-1. Visual identity
-2. Color and typography
-3. Cover composition
-4. Information-page composition
-5. Diagram grammar
-6. Negative constraints
+1. Shared rules
+2. Alpaca line-art profile
+3. Glasses chibi profile
+4. Cover composition
+5. Information-page composition
+6. Diagram grammar
+7. Negative constraints
 
-## 1. Visual identity
+## 1. Shared rules
 
-Create a clean educational comic that feels like a knowledgeable creator explaining one idea on a whiteboard. Use a polished chibi host rather than a stick figure.
+Create a clean educational comic that explains one sharp idea on a phone screen.
+
+- Use one dominant message, one primary structure, and one original physical metaphor per page.
+- Make the selected IP perform the metaphor's core action.
+- Keep generous safe margins and whitespace.
+- Use short Chinese labels and exact product names.
+- Preserve the selected profile across the full series.
+
+## 2. `alpaca-line-art` profile
 
 Required anchors:
 
-- warm off-white paper-like background;
-- consistent glasses-wearing chibi host;
-- thick black headline lettering;
-- cobalt-blue brush highlights and arrows;
-- simple rounded cards, speech bubbles, and icons;
-- generous whitespace;
-- one dominant message per page.
+- pure white `#FFFFFF` background without paper texture;
+- white alpaca creator from `assets/characters/alpaca-line-art/character-sheet.png`;
+- fine black `#101010` hand-drawn lines with slight natural wobble;
+- black handwritten-looking titles and labels;
+- optional sparse cobalt-blue `#2F75D6` emphasis;
+- lightly absurd low-tech physical metaphors;
+- roughly 35% or more quiet space.
 
-## 2. Color and typography
+Black must carry all essential meaning. Keep accent color below roughly 10% of the page. Avoid gradients, shadows, thick vector outlines, polished commercial illustration, and off-white paper.
 
-Recommended palette:
+## 3. `glasses-chibi-blue` profile
 
-- background: `#F6F3ED`;
-- primary ink: `#101010`;
-- accent blue: `#2F75D6`;
-- pale blue panel: `#DCEBFA`;
-- charcoal clothing: `#333333`;
-- optional semantic yellow: `#F4C542`.
+Required anchors:
 
-Use large, bold, rounded or handwritten-looking Chinese titles. Use black main text and blue emphasis. Set commands in a clean monospaced typeface. Avoid thin gray body copy and tiny labels.
+- warm off-white paper-like `#F6F3ED` background;
+- glasses-wearing chibi creator from `assets/characters/glasses-chibi-blue/character-sheet.png`;
+- clean black outlines and restrained soft shading;
+- thick black handwritten-looking titles;
+- cobalt-blue `#2F75D6` brush highlights, arrows, underlines, and numbered blocks;
+- optional pale-blue `#DCEBFA` cards and sparse semantic yellow `#F4C542`;
+- polished, friendly educational-comic feeling with generous whitespace.
 
-## 3. Cover composition — 3:4
+Keep the original profile's fuller rendering and blue visual grammar. Do not silently convert it into the alpaca profile's sparse fine-line look.
+
+## 4. Cover composition — 3:4
 
 Prefer:
 
-1. small blue hook or category label;
+1. small hook or category label;
 2. very large title in the upper third;
 3. short curiosity-driven subtitle;
-4. host character plus one iconic object;
+4. the selected IP actively operating one iconic object;
 5. one simple relationship or preview;
 6. optional bottom takeaway strip.
 
-## 4. Information-page composition — 9:16
+## 5. Information-page composition — 9:16
 
 Use one:
 
-- title + hero diagram + bottom takeaway;
+- title + hero metaphor + bottom takeaway;
 - left/right comparison;
 - top-to-bottom process;
 - four-card capability grid;
-- circular human-in-the-loop diagram;
+- circular human-in-the-loop scene;
 - before/after narrative;
 - one large metaphor with sparse callouts.
 
-Keep all important content inside generous safe margins.
+Do not combine a comparison, a grid, and a workflow unless the key idea cannot be expressed otherwise.
 
-## 5. Diagram grammar
+## 6. Diagram grammar
 
-- Blue arrow: direction, transition, control flow, or cause and effect.
-- Blue underline: the exact phrase to remember.
-- Blue numbered block: page number or ordered step.
+- Arrow: direction, transition, control flow, or cause and effect.
+- Underline: the exact phrase to remember.
+- Numbered block: page number or ordered step.
 - Speech bubble: one short spoken line.
-- Pale-blue card: supporting explanation.
+- Supporting card or note: secondary explanation only.
 - Black terminal panel: real command or system action.
 - Check mark: verified completion only.
 
-## 6. Negative constraints
+Apply the selected profile's palette and line treatment to these elements.
 
-Avoid stick figures, photorealism, 3D rendering, glossy anime, cyberpunk palettes, dense corporate dashboards, long paragraphs, tiny text, unrelated decoration, inconsistent character identity, fake UI text, malformed commands, unwanted watermarks, and cropped titles or summaries.
+## 7. Negative constraints
+
+Avoid stick figures, photorealism, 3D rendering, glossy anime, cyberpunk palettes, dense corporate dashboards, formal flowcharts, long paragraphs, tiny text, unrelated decoration, a passive mascot, inconsistent profile identity, fake UI text, malformed commands, unwanted watermarks, and cropped titles or summaries.

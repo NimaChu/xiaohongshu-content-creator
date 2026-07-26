@@ -97,7 +97,7 @@ def build_cover_prompt(project: dict[str, Any]) -> str:
         "页面密度：comfy",
         "系列风格：unified",
         "页面角色：cover",
-        "页面风格：soft",
+        "页面风格：minimal",
         "强调色：blue",
         "语气：playful",
         "装饰密度：low",
@@ -122,7 +122,7 @@ def build_page_prompt(page: dict[str, Any]) -> str:
         f"页面密度：{page.get('density', 'comfy')}",
         "系列风格：unified",
         "页面角色：body",
-        f"页面风格：{page.get('surface_style', 'soft')}",
+        f"页面风格：{page.get('surface_style', 'minimal')}",
         f"强调色：{page.get('accent', 'blue')}",
     ]
     return "\n".join(part for part in parts if part)

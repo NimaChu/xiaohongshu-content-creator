@@ -1,49 +1,54 @@
 # Character Consistency
 
-## Canonical character
+## Choose one profile
 
-Use the bundled reference:
+Resolve `visual_profile` through `references/visual-profiles.json`. Attach only its `character_reference` to each generation call. Never attach both built-in sheets at once.
 
-- `assets/character-sheet.png`
+The selected image is an identity reference, not a fixed composition. Change pose, expression, viewing angle, and props while preserving the profile-specific identity.
 
-Default host:
+## `alpaca-line-art`
 
-- young adult East Asian man;
+Reference:
+
+- `assets/characters/alpaca-line-art/character-sheet.png`
+
+Keep:
+
+- white fluffy alpaca/llama-like silhouette;
+- two upright tapered ears;
+- large rounded muzzle with the same small three-lobed nose-and-mouth mark;
+- simple black facial features and short rounded forelimbs;
+- compact proportions and fine black hand-drawn line treatment.
+
+The laptop and carrot mark are props from the reference scene, not required anatomy. Sparkle eyes are one allowed expression, not the only expression.
+
+Reject or repair when the alpaca becomes a generic bear, cat, rabbit, or human; when the ears, muzzle, face mark, silhouette, or proportions drift; or when the line work becomes thick commercial vector art.
+
+## `glasses-chibi-blue`
+
+Reference:
+
+- `assets/characters/glasses-chibi-blue/character-sheet.png`
+
+Keep:
+
+- young East Asian male creator;
 - short, slightly tousled black hair;
 - clear gray rectangular glasses;
 - large warm brown eyes and friendly expression;
-- charcoal crewneck sweatshirt;
-- black casual trousers;
-- white sneakers;
-- cute chibi proportions with readable hands;
-- clean black outlines and restrained soft shading.
+- charcoal crewneck sweatshirt, black trousers, and white sneakers;
+- polished chibi proportions, clean black outlines, and restrained soft shading.
 
-## Allowed variations
+Reject or repair when the glasses disappear or change, hair or clothes drift, the host becomes a child or realistic adult, proportions change, or the illustration style no longer matches the approved cover.
 
-Change pose, expression, hand gesture, seated or standing position, and task-relevant props.
+## Core-action rule
 
-Keep hair silhouette, glasses, face shape, outfit colors, apparent age, drawing style, and body proportions fixed.
+Write `character_action` separately from `character_pose` for every image. The action must cause, block, repair, transform, or reveal the page's central relationship.
 
-## Preferred poses
+Useful actions include pulling, connecting, sorting, repairing, weighing, stamping, opening, carrying, catching, handing over, operating, guarding, and inspecting. Pointing, waving, smiling, or standing beside a finished diagram does not count as a core action.
 
-- point upward to introduce a definition;
-- point toward a diagram or terminal;
-- think with hand on chin;
-- type on a laptop;
-- hold a checklist, report, or shield;
-- give a thumbs-up;
-- wave on the cover or closing page;
-- cross arms for a summary.
+Apply the dependency test: if removing the character leaves the metaphor fully intact, redesign the scene. The IP is an actor, not a mascot or sticker.
 
-## Consistency checks
+## Adding or replacing a character
 
-Reject or repair a page when glasses disappear or change, hair or clothes drift, the host becomes a child or realistic adult, proportions change, or the illustration style no longer matches the approved cover.
-
-## Replacement characters
-
-When the user supplies another character:
-
-1. write a short canonical profile;
-2. use the supplied reference in every generation call;
-3. preserve the page ratios and layout rules unless requested otherwise;
-4. do not publish a source portrait without explicit permission.
+Follow `references/visual-profiles.md`. Give each IP its own profile directory and exactly one `character-sheet.png`. Add immutable identity traits and drift checks here. Do not publish a source portrait without explicit permission.

@@ -4,11 +4,11 @@
 
 A cross-agent skill for creating complete Xiaohongshu image-and-text posts. It is not tied to one coding assistant or runtime: Claude Code, OpenCode, OpenClaw, Hermes, Codex, and any other agent that can read `SKILL.md` and invoke local scripts or image tools can use it.
 
-The skill covers research, fact checking, post copy, pagination, storyboards, image generation, local rendering fallback, and final QA.
+The skill covers research, fact checking, cognitive-anchor page selection, post copy, original visual metaphors, storyboards, image generation, local rendering fallback, and repair-oriented QA.
 
 ## Production paths
 
-- When an image-generation tool is available, create character-consistent comic explainers using the bundled character reference.
+- When an image-generation tool is available, select one visual profile and attach only that profile's `character-sheet.png`. The selected IP must perform each page's core conceptual action.
 - When no image-generation tool is available, render deterministic SVG-to-PNG knowledge cards locally.
 - Apply a local SVG text patch only after the user explicitly reports incorrect or unreadable text.
 
@@ -18,6 +18,17 @@ Both paths use the same Xiaohongshu defaults:
 |---|---:|---:|
 | Cover | 3:4 | 1080 × 1440 |
 | Content page | 9:16 | 1080 × 1920 |
+
+Pages are selected by cognitive anchors rather than by splitting the source evenly. Each page converts an abstract concept into a physical action, maps that action to an ordinary low-tech object, and makes the character perform it. QA records each defect, repair action, and recheck result.
+
+Built-in visual profiles:
+
+| `visual_profile` | IP | Default style |
+|---|---|---|
+| `alpaca-line-art` (default) | White alpaca creator | Pure white, fine black hand-drawn lines, generous whitespace, sparse blue emphasis |
+| `glasses-chibi-blue` | Original glasses-wearing chibi creator | Warm off-white paper, polished comic rendering, cobalt-blue brush accents and pale-blue cards |
+
+Each profile owns `assets/characters/<profile-id>/character-sheet.png`. Add future IPs by adding one asset directory and one entry to `references/visual-profiles.json`.
 
 ## Skill output
 
