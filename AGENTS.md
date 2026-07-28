@@ -1,6 +1,6 @@
 # Repository guidance
 
-This repository contains the `xiaohongshu-content-creator` Agent Skill and dependency-free helper scripts.
+This repository contains the `xhs-imagen` Agent Skill and dependency-free helper scripts.
 
 ## Required checks
 

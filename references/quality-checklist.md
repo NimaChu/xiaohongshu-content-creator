@@ -27,6 +27,10 @@
 - [ ] The background, line treatment, and palette match the selected visual profile.
 - [ ] `alpaca-line-art`: pure white, fine black hand-drawn lines, sparse accent color.
 - [ ] `glasses-chibi-blue`: warm off-white paper, polished black outlines, cobalt-blue accents.
+- [ ] `toolbox-bot-risograph`: indigo and orange-red inks, risograph grain, slight misregistration.
+- [ ] `maker-girl-editorial`: natural adult proportions, rust/navy/ivory palette, textured editorial rendering.
+- [ ] `cyber-luban-woodcut`: xuan paper, carved black lines, wood brown, sparse cinnabar accents.
+- [ ] `capybara-gouache`: warm opaque gouache, muted caramel/green palette, visible dry-brush texture.
 - [ ] Every page uses one original physical metaphor and one primary structure.
 - [ ] The character performs the core action; removing it would break the metaphor.
 - [ ] The selected profile's immutable character traits and proportions are stable.
@@ -61,7 +65,8 @@ For each failure, repair the image or prompt and then run the same check again. 
 | Character is decorative | Replace pointing/standing with an action that causes, blocks, repairs, transforms, or reveals the result | Removing the character breaks the metaphor |
 | Metaphor is generic or copied | Keep the concept; replace both the physical verb and primary object | The scene is topic-specific and not repeated elsewhere in the series |
 | Page looks like PPT | Remove grids, frames, type labels, and excess arrows; rebuild around one physical scene | One primary structure is legible within two seconds |
-| Background or lines mismatch | Restate the selected profile's `style_lock`; for alpaca remove paper color and thick lines, for glasses chibi restore warm paper and polished outlines | Background and line treatment match the selected profile |
+| Background or lines mismatch | Restate the selected profile's complete `style_lock`, including its paper, medium, palette, and mark-making anchors | Background and line treatment match the selected profile |
+| Character and style come from different profiles | Remove every non-selected reference and style phrase; reattach only the selected profile's `character_reference` and full `style_lock` | One inseparable character-and-style profile is visible |
 | Character identity drifts | Reattach only the selected profile's `character_reference` and restate its immutable traits | The character matches the selected profile |
 | Page is too dense | Remove secondary objects and labels; keep one object plus at most two supports | Main cluster uses roughly 40–65% of the canvas with clear quiet space |
 | Text is too long | Move explanation to `post.md`; retain only title, anchor sentence, and short labels | All image text is readable at phone size |

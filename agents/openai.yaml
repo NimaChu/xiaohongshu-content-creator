@@ -1,6 +1,13 @@
 interface:
-  display_name: "小红书图文创作"
-  short_description: "从选题调研到封面、内页和发布文案的一站式小红书图文创作"
+  display_name: "xhs-imagen"
+  short_description: "从选题调研到角色一致性生图及发布的一站式小红书图文创作"
   icon_large: "./assets/characters/alpaca-line-art/character-sheet.png"
   brand_color: "#2F75D6"
-  default_prompt: "Use $xiaohongshu-content-creator to turn my topic into a researched Xiaohongshu post with a 3:4 cover and 9:16 content pages."
+  default_prompt: "Use $xhs-imagen to research my topic and create a Xiaohongshu post with a 3:4 cover, 9:16 pages, and publishable copy."
+policy:
+  products:
+    - "chatgpt"
+    - "codex"
+    - "api"
+    - "atlas"
+  allow_implicit_invocation: true

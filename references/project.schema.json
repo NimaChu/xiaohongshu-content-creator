@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/NimaChu/xiaohongshu-content-creator/blob/main/references/project.schema.json",
-  "title": "Xiaohongshu Content Creator Project",
+  "$id": "https://github.com/NimaChu/xhs-imagen/blob/main/references/project.schema.json",
+  "title": "xhs-imagen Project",
   "type": "object",
   "additionalProperties": true,
   "required": ["topic", "audience", "thesis", "visual_profile", "cover", "pages"],

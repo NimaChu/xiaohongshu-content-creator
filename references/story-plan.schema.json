@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/NimaChu/xiaohongshu-content-creator/blob/main/references/story-plan.schema.json",
+  "$id": "https://github.com/NimaChu/xhs-imagen/blob/main/references/story-plan.schema.json",
   "title": "Free ImageGen Story Plan",
   "description": "Agent-authored page plan for local article-to-image rendering.",
   "type": "object",
@@ -84,7 +84,7 @@
           "type": "array",
           "items": { "type": "string" },
           "maxItems": 8,
-          "description": "Body content. Keep each item concise for mobile readability." 
+          "description": "Body content. Keep each item concise for mobile readability."
         },
         "image_path": { "type": "string", "description": "Absolute local image path when this page should embed a real image." },
         "svg_markup": { "type": "string", "description": "Raw SVG markup authored by the agent. Use when the agent wants full control over the image." },

@@ -1,9 +1,9 @@
 ---
-name: xiaohongshu-content-creator
+name: xhs-imagen
 description: Create complete Xiaohongshu image-and-text posts from a topic, article, document, or rough idea, including research, fact checking, post copy, pagination, storyboards, a 3:4 cover, 9:16 content pages, image generation or fully local SVG-to-PNG fallback, and final quality review. Use for 小红书图文、小红书封面、知识卡片、漫画科普、文章转图片、AI/科技科普图组、逐页生图提示词, or revisions to an existing Xiaohongshu series. Prefer an available image-generation model; use the bundled local renderer only when no image-generation tool is available. Apply an SVG text patch only after the user explicitly reports incorrect or unreadable text in an image.
 ---
 
-# Xiaohongshu Content Creator
+# xhs-imagen
 
 Turn one topic or source article into a publication-ready Xiaohongshu post package.
 
@@ -41,6 +41,10 @@ If the user requests only part of the package, create only that part. Never clai
 - Do not render page numbers or page-position markers such as `04`, `01/08`, or `PAGE 04`. Keep ordering only in filenames. Numbered steps are allowed when the numbers explain the content itself.
 - Default to the `alpaca-line-art` profile: pure-white background, fine black hand-drawn lines, and the bundled white alpaca creator IP.
 - Preserve `glasses-chibi-blue` as a selectable profile for the original glasses-wearing host, warm off-white paper, and cobalt-blue comic style.
+- Use `toolbox-bot-risograph` for tool ecosystems, plugins, Skills, Agents, and workflows in two-color risograph.
+- Use `maker-girl-editorial` for professional AI Coding, workplace, tutorial, and opinion content in modern editorial illustration.
+- Use `cyber-luban-woodcut` for Skill–Harness–Agent architecture and system-building topics in new-Chinese woodcut.
+- Use `capybara-gouache` for beginner explainers, pitfalls, reassurance, and everyday analogies in warm gouache.
 - Make the character perform the page's core conceptual action; never use it as corner decoration.
 
 Read [references/visual-profiles.md](references/visual-profiles.md), [references/visual-style.md](references/visual-style.md), and [references/character-consistency.md](references/character-consistency.md) before producing images.

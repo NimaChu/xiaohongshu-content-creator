@@ -1,4 +1,4 @@
-name: Validate skill
+name: Validate xhs-imagen
 
 on:
   push:

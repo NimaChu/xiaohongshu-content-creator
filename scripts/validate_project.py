@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate a Xiaohongshu Content Creator project JSON file."""
+"""Validate an xhs-imagen project JSON file."""
 
 from __future__ import annotations
 

@@ -110,6 +110,34 @@ class ProjectToolsTests(unittest.TestCase):
         self.assertIn("暖米白纸张质感背景", page)
         self.assertNotIn("白色羊驼", page)
 
+    def test_all_visual_profiles_are_registered_and_usable(self) -> None:
+        registry = json.loads(
+            (ROOT / "references" / "visual-profiles.json").read_text(encoding="utf-8")
+        )
+        expected = {
+            "alpaca-line-art",
+            "glasses-chibi-blue",
+            "toolbox-bot-risograph",
+            "maker-girl-editorial",
+            "cyber-luban-woodcut",
+            "capybara-gouache",
+        }
+        self.assertEqual(set(registry["profiles"]), expected)
+
+        for profile_id in expected:
+            profile = registry["profiles"][profile_id]
+            self.assertTrue((ROOT / profile["character_reference"]).is_file())
+            project = deepcopy(self.project)
+            project["visual_profile"] = profile_id
+            prompt = page_prompt(project, project["pages"][0])
+            self.assertIn(profile_id, prompt)
+            self.assertIn(profile["character_reference"], prompt)
+
+    def test_image_prompts_forbid_page_position_markers(self) -> None:
+        page = page_prompt(self.project, self.project["pages"][0])
+        self.assertIn("禁止显示任何页码、总页数或分页位置标记", page)
+        self.assertNotIn("角标：", build_render_plan(self.project)[1]["prompt"])
+
     def test_png_header_reader(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             path = Path(temp_dir) / "test.png"

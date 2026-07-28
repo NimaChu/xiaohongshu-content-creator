@@ -5,10 +5,14 @@
 1. Shared rules
 2. Alpaca line-art profile
 3. Glasses chibi profile
-4. Cover composition
-5. Information-page composition
-6. Diagram grammar
-7. Negative constraints
+4. Toolbox bot risograph profile
+5. Maker girl editorial profile
+6. Cyber Luban woodcut profile
+7. Capybara gouache profile
+8. Cover composition
+9. Information-page composition
+10. Diagram grammar
+11. Negative constraints
 
 ## 1. Shared rules
 
@@ -48,7 +52,59 @@ Required anchors:
 
 Keep the original profile's fuller rendering and blue visual grammar. Do not silently convert it into the alpaca profile's sparse fine-line look.
 
-## 4. Cover composition — 3:4
+## 4. `toolbox-bot-risograph` profile
+
+Required anchors:
+
+- warm uncoated paper around `#F5EEE2`;
+- toolbox robot from `assets/characters/toolbox-bot-risograph/character-sheet.png`;
+- deep indigo and orange-red as the only saturated inks;
+- visible risograph grain, halftone, and slight color misregistration;
+- cursor-arrow antenna, cream face screen, orange-red belt, centered latch, and pincer hands;
+- bold hand-printed poster typography and simplified two-color icons.
+
+Preserve the deliberately printed, tactile look. Do not convert it into glossy robotics, 3D, or smooth corporate vector illustration.
+
+## 5. `maker-girl-editorial` profile
+
+Required anchors:
+
+- warm ivory magazine-paper background around `#F5EFE3`;
+- adult woman engineer from `assets/characters/maker-girl-editorial/character-sheet.png`;
+- rust red, deep navy, ivory, and charcoal limited palette;
+- fine hand-inked outlines, restrained pencil hatching, and textured flat color;
+- natural adult proportions, chin-length black bob, red pencil, work jacket, trousers, black shoes, and navy tool bag;
+- mature editorial composition with clear geometry and generous quiet space.
+
+Preserve a professional, non-infantile point of view. Do not convert the character into chibi, anime, glamour fashion, or photorealism.
+
+## 6. `cyber-luban-woodcut` profile
+
+Required anchors:
+
+- fibrous xuan-paper background around `#F1EBDD`;
+- wooden Luban craftsperson from `assets/characters/cyber-luban-woodcut/character-sheet.png`;
+- carved black lines, natural wood brown, and sparse cinnabar red;
+- visible knife-cut hatching, wood grain, imperfect ink transfer, and restrained color registration;
+- square head, chest joinery emblem, wooden-pin joints, dark apron, carpenter's square, and toolbox;
+- system metaphors built physically from beams, joinery, tools, and measured structures.
+
+Keep “cyber” conceptual: the character builds modern systems with traditional craft logic. Do not introduce neon cyberpunk, glowing circuits, or metal mecha.
+
+## 7. `capybara-gouache` profile
+
+Required anchors:
+
+- warm cream-paper background around `#F3E9D7`;
+- capybara operations helper from `assets/characters/capybara-gouache/character-sheet.png`;
+- caramel brown, muted forest green, cream, and sparse terracotta;
+- opaque gouache, dry-brush marks, visible paper grain, soft edges, and gentle grounding shadows;
+- thick adult capybara body, blunt muzzle, green apron, red pencil, and crossbody notebook;
+- calm, reliable, low-pressure visual tone without becoming childish.
+
+Keep the tactile painted warmth. Do not convert the character into a plush 3D toy, generic cute rodent, or flat vector mascot.
+
+## 8. Cover composition — 3:4
 
 Prefer:
 
@@ -59,7 +115,7 @@ Prefer:
 5. one simple relationship or preview;
 6. optional bottom takeaway strip.
 
-## 5. Information-page composition — 9:16
+## 9. Information-page composition — 9:16
 
 Use one:
 
@@ -73,7 +129,7 @@ Use one:
 
 Do not combine a comparison, a grid, and a workflow unless the key idea cannot be expressed otherwise.
 
-## 6. Diagram grammar
+## 10. Diagram grammar
 
 - Arrow: direction, transition, control flow, or cause and effect.
 - Underline: the exact phrase to remember.
@@ -85,6 +141,6 @@ Do not combine a comparison, a grid, and a workflow unless the key idea cannot b
 
 Apply the selected profile's palette and line treatment to these elements.
 
-## 7. Negative constraints
+## 11. Negative constraints
 
-Avoid stick figures, photorealism, 3D rendering, glossy anime, cyberpunk palettes, dense corporate dashboards, formal flowcharts, long paragraphs, tiny text, unrelated decoration, a passive mascot, inconsistent profile identity, fake UI text, malformed commands, visible page numbers or page counts, unwanted watermarks, and cropped titles or summaries.
+Avoid stick figures, photorealism, 3D rendering, glossy anime, unrequested cyberpunk palettes, dense corporate dashboards, formal flowcharts, long paragraphs, tiny text, unrelated decoration, a passive mascot, a character-and-style mismatch, inconsistent profile identity, fake UI text, malformed commands, visible page numbers or page counts, unwanted watermarks, and cropped titles or summaries.
